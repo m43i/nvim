@@ -21,3 +21,6 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- format
 vim.keymap.set({ "n", "v" }, "<leader>f", vim.lsp.buf.format)
+
+-- undotree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

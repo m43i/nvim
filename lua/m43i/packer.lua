@@ -20,6 +20,7 @@ local plugins = {
     "github/copilot.vim",
     "lewis6991/gitsigns.nvim",
     "nvim-treesitter/nvim-treesitter",
+    "mbbill/undotree",
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.0",
