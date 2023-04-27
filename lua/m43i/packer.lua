@@ -12,15 +12,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    "olimorris/onedarkpro.nvim",
     "tpope/vim-fugitive",
     "folke/tokyonight.nvim",
-    "projekt0n/github-nvim-theme",
     "ggandor/leap.nvim",
     "github/copilot.vim",
     "lewis6991/gitsigns.nvim",
     "nvim-treesitter/nvim-treesitter",
     "mbbill/undotree",
+    { "catppuccin/nvim", name = "catppuccin" },
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.0",
