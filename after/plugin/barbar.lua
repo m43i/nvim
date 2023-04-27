@@ -1,8 +1,8 @@
 vim.keymap.set('n', '<leader>n', ':BufferNext<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>p', ':BufferPrevious<CR>', {noremap = true, silent = true})
 vim.keymap.set('n', '<leader>c', ':BufferClose<CR>', {noremap = true, silent = true})
-vim.keymap.set('n', '<leader>mn', ':BufferMoveNext<CR>', {noremap = true, silent = true})
-vim.keymap.set('n', '<leader>mp', ':BufferMovePrevious<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>N', ':BufferMoveNext<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<leader>P', ':BufferMovePrevious<CR>', {noremap = true, silent = true})
 
 local nvim_tree_events = require('nvim-tree.events')
 local bufferline_api = require('bufferline.api')
