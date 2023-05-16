@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     "tpope/vim-fugitive",
     "folke/tokyonight.nvim",
+    "rebelot/kanagawa.nvim",
     "ggandor/leap.nvim",
     "github/copilot.vim",
     "lewis6991/gitsigns.nvim",
@@ -23,7 +24,7 @@ local plugins = {
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.0",
-        dependencies = { "nvim-lua/plenary.nvim" }
+        dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-ui-select.nvim" }
     },
     {
         "numToStr/Comment.nvim",
