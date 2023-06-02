@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     "tpope/vim-fugitive",
     "folke/tokyonight.nvim",
-    "rebelot/kanagawa.nvim",
+    {"rebelot/kanagawa.nvim", lazy = false },
     "ggandor/leap.nvim",
     "github/copilot.vim",
     "lewis6991/gitsigns.nvim",
@@ -50,6 +50,7 @@ local plugins = {
     },
     {
         "VonHeikemen/lsp-zero.nvim",
+        lazy = false,
         dependencies = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },
