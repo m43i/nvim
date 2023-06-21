@@ -191,7 +191,11 @@ return {
 				-- make sure the source name is supported by null-ls
 				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.formatting.prettier,
+				null_ls.builtins.formatting.prettierd.with({
+					env = {
+						PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json"),
+					},
+				}),
 			},
 		})
 	end,
