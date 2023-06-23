@@ -4,15 +4,7 @@ return {
     event = "InsertEnter",
     config = function()
         require('copilot').setup({
-            panel = {
-                enabled = false,
-                auto_refresh = false,
-                keymap = {},
-                layout = {
-                    position = "bottom", -- | top | left | right
-                    ratio = 0.4
-                },
-            },
+            panel = { enabled = false },
             suggestion = {
                 enabled = true,
                 auto_trigger = true,
