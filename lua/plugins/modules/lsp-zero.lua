@@ -174,8 +174,6 @@ return {
             info = '»'
         })
 
-        lsp.setup()
-
         lsp.format_mapping("<leader>gf", {
             format_opts = {
                 async = false,
@@ -185,6 +183,8 @@ return {
                 ["null-ls"] = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
             },
         })
+
+        lsp.setup()
 
         vim.diagnostic.config({
             virtual_text = true,
