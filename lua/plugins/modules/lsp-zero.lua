@@ -23,6 +23,7 @@ return {
     },
     config = function()
         local lsp = require("lsp-zero")
+        local nvim_lsp = require('lspconfig')
 
         lsp.preset("recommended")
 
@@ -69,6 +70,15 @@ return {
             vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
             vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
         end)
+
+        lsp.configure('denols', {
+            root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
+        })
+
+        lsp.configure('tsserver', {
+            root_dir = nvim_lsp.util.root_pattern("package.json"),
+            single_file_support = false
+        })
 
         lsp.configure("intelephense", {
             settings = {
