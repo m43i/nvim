@@ -71,15 +71,6 @@ return {
             vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
         end)
 
-        lsp.configure('denols', {
-            root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
-        })
-
-        lsp.configure('tsserver', {
-            root_dir = nvim_lsp.util.root_pattern("package.json"),
-            single_file_support = false
-        })
-
         lsp.configure("intelephense", {
             settings = {
                 intelephense = {
@@ -192,6 +183,15 @@ return {
             servers = {
                 ["null-ls"] = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
             },
+        })
+
+        lsp.configure('denols', {
+            root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
+        })
+
+        lsp.configure('tsserver', {
+            root_dir = nvim_lsp.util.root_pattern("package.json"),
+            single_file_support = false
         })
 
         lsp.setup()
