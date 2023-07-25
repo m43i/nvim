@@ -1,5 +1,8 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    init = function()
+        pcall(vim.cmd.TSUpdate)
+    end,
     config = function()
         require 'nvim-treesitter.configs'.setup {
             -- A list of parser names, or "all"

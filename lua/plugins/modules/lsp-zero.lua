@@ -3,8 +3,12 @@ return {
     dependencies = {
         -- LSP Support
         { "neovim/nvim-lspconfig" },
-        { "williamboman/mason.nvim" },
-        { "williamboman/mason-lspconfig.nvim" },
+        { -- Optional
+            'williamboman/mason.nvim',
+            build = function()
+                pcall(vim.api.nvim_command, 'MasonUpdate')
+            end,
+        }, { "williamboman/mason-lspconfig.nvim" },
 
         -- Autocompletion
         { "hrsh7th/nvim-cmp" },
@@ -17,9 +21,6 @@ return {
         -- Snippets
         { "L3MON4D3/LuaSnip" },
         { "rafamadriz/friendly-snippets" },
-
-        -- Null-LSP
-        { "jose-elias-alvarez/null-ls.nvim" },
     },
     config = function()
         local lsp = require("lsp-zero")
@@ -175,16 +176,6 @@ return {
             info = '»'
         })
 
-        lsp.format_mapping("<leader>gf", {
-            format_opts = {
-                async = false,
-                timeout_ms = 10000,
-            },
-            servers = {
-                ["null-ls"] = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
-            },
-        })
-
         lsp.configure('denols', {
             root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
         })
@@ -198,21 +189,6 @@ return {
 
         vim.diagnostic.config({
             virtual_text = true,
-        })
-
-        local null_ls = require("null-ls")
-
-        null_ls.setup({
-            sources = {
-                -- Replace these with the tools you have installed
-                -- make sure the source name is supported by null-ls
-                -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-                null_ls.builtins.formatting.prettierd.with({
-                    env = {
-                        PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json"),
-                    },
-                }),
-            },
         })
     end,
 }
