@@ -28,6 +28,5 @@ return {
         vim.keymap.set('n', '<leader>p', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>N', ':BufferLineMoveNext<CR>', { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>P', ':BufferLineMovePrev<CR>', { noremap = true, silent = true })
-        vim.keymap.set('n', '<leader>c', ':BufferLinePickClose<CR>', { noremap = true, silent = true })
     end
 }
