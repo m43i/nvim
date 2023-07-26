@@ -40,7 +40,7 @@ return {
             tabline = {},
             winbar = {},
             inactive_winbar = {},
-            extensions = { 'nvim-tree', 'fugitive' }
+            extensions = { 'neo-tree', 'fugitive' }
         }
     end,
 }

@@ -15,7 +15,7 @@ return {
                 },
                 offsets = {
                     {
-                        filetype = "NvimTree",
+                        filetype = "neo-tree",
                         text = "File Explorer",
                         text_align = "left",
                         separator = true
@@ -28,6 +28,6 @@ return {
         vim.keymap.set('n', '<leader>p', ':BufferLineCyclePrev<CR>', { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>N', ':BufferLineMoveNext<CR>', { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>P', ':BufferLineMovePrev<CR>', { noremap = true, silent = true })
-        vim.keymap.set('n', '<leader>c', ':bp<bar>sp<bar>bn<bar>bd<CR>', { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>c', ':BufferLinePickClose<CR>', { noremap = true, silent = true })
     end
 }
