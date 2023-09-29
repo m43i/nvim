@@ -14,6 +14,9 @@ return {
 
         require("formatter").setup {
             filetype = {
+                vue = {
+                    prettier,
+                },
                 typescript = {
                     prettier,
                 },

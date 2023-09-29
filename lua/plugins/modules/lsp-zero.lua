@@ -2,7 +2,9 @@ return {
     "VonHeikemen/lsp-zero.nvim",
     dependencies = {
         -- LSP Support
-        { "neovim/nvim-lspconfig" },
+        {
+            "neovim/nvim-lspconfig",
+        },
         { -- Optional
             'williamboman/mason.nvim',
             build = function()
@@ -34,6 +36,16 @@ return {
             "rust_analyzer",
         })
 
+        lsp.set_server_config({
+            capabilities = {
+                workspace = {
+                    didChangeWatchedFiles = {
+                        dynamicRegistration = true,
+                    },
+                }
+            }
+        })
+
         local cmp = require("cmp")
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
         local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -51,14 +63,30 @@ return {
             mapping = cmp_mappings,
         })
 
+        lsp.set_sign_icons({
+            error = '✘',
+            warn = '▲',
+            hint = '⚑',
+            info = '»'
+        })
+
         lsp.on_attach(function(client, bufnr)
+            local is_nuxt = nvim_lsp.util.root_pattern("nuxt.config.ts")(vim.fn.getcwd())
+            local active_clients = vim.lsp.get_active_clients()
+
+            if client.name == "volar" and is_nuxt then
+                for _, active_client in ipairs(active_clients) do
+                    if active_client.name == "tsserver" then
+                        active_client.stop()
+                    end
+                end
+            end
+
+            if client.name == "tsserver" and is_nuxt then
+                client.stop()
+            end
+
             local opts = { buffer = bufnr, remap = false }
-
-            -- if client.name == "eslint" then
-            --     vim.cmd.LspStop('eslint')
-            --     return
-            -- end
-
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
             vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
             vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
@@ -169,21 +197,39 @@ return {
             },
         })
 
-        lsp.set_sign_icons({
-            error = '✘',
-            warn = '▲',
-            hint = '⚑',
-            info = '»'
-        })
 
-        lsp.configure('denols', {
+        nvim_lsp.denols.setup {
             root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
-        })
+        }
 
-        lsp.configure('tsserver', {
+        nvim_lsp.tsserver.setup {
             root_dir = nvim_lsp.util.root_pattern("package.json"),
-            single_file_support = false
-        })
+            single_file_support = false,
+        }
+
+        nvim_lsp.volar.setup {
+            root_dir = nvim_lsp.util.root_pattern("nuxt.config.ts"),
+            filetypes = { "vue", "typescript", "javascript" },
+            on_attach = function(client)
+                pcall(function() client.server_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true end)
+            end,
+        }
+
+        nvim_lsp.lua_ls.setup {
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = 'LuaJIT',
+                    },
+                    diagnostics = {
+                        globals = { "vim" },
+                    },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    }
+                },
+            }
+        }
 
         lsp.setup()
 
