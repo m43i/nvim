@@ -215,6 +215,17 @@ return {
             end,
         }
 
+        nvim_lsp.svelte.setup {
+            on_attach = function(client)
+                vim.api.nvim_create_autocmd("BufWritePost", {
+                    pattern = { "*.js", "*.ts" },
+                    callback = function(ctx)
+                        client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
+                    end,
+                })
+            end
+        }
+
         nvim_lsp.lua_ls.setup {
             settings = {
                 Lua = {
