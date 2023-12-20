@@ -242,6 +242,12 @@ return {
             }
         }
 
+        nvim_lsp.eslint.setup {
+            workingDirectory = {
+                mode = "auto",
+            },
+        }
+
         lsp.setup()
 
         vim.diagnostic.config({
