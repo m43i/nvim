@@ -7,9 +7,7 @@ return {
         },
         { -- Optional
             'williamboman/mason.nvim',
-            build = function()
-                pcall(vim.api.nvim_command, 'MasonUpdate')
-            end,
+            build = ":MasonUpdate",
         }, { "williamboman/mason-lspconfig.nvim" },
 
         -- Autocompletion
@@ -246,6 +244,9 @@ return {
             workingDirectory = {
                 mode = "auto",
             },
+            on_attach = function(client)
+                pcall(function() client.server_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true end)
+            end,
         }
 
         lsp.setup()

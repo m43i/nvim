@@ -10,12 +10,12 @@ return {
                 auto_trigger = true,
                 debounce = 75,
                 keymap = {
-                    accept = "<M-y>",
+                    accept = "<c-a>",
                     accept_word = false,
                     accept_line = false,
-                    next = "<M-n>",
-                    prev = "<M-p>",
-                    dismiss = "<M-c>",
+                    next = "<c-n>",
+                    prev = "<c-p>",
+                    dismiss = "<C-e>",
                 },
             },
             filetypes = {
@@ -33,12 +33,12 @@ return {
             server_opts_overrides = {},
         })
 
-        vim.keymap.set('i', '<Tab>', function()
-            if require("copilot.suggestion").is_visible() then
-                require("copilot.suggestion").accept()
-            else
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
-            end
-        end, { desc = "Super Tab" })
+        -- vim.keymap.set('i', '<Tab>', function()
+        --     if require("copilot.suggestion").is_visible() then
+        --         require("copilot.suggestion").accept()
+        --     else
+        --         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+        --     end
+        -- end, { desc = "Super Tab" })
     end,
 }

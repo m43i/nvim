@@ -1,12 +1,18 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    init = function()
-        pcall(vim.cmd.TSUpdate)
-    end,
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+    },
     config = function()
         require 'nvim-treesitter.configs'.setup {
             -- A list of parser names, or "all"
             ensure_installed = { "vimdoc", "javascript", "typescript", "php", "c", "lua", "rust" },
+
+            -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+            ignore_install = {},
+
+            modules = {},
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
