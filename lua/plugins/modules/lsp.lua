@@ -18,7 +18,6 @@ return {
     config = function()
         require("mason").setup({
             ui = {
-                border = "rounded",
                 icons = {
                     package_installed = "✓",
                     package_pending = "➜",
@@ -80,6 +79,18 @@ return {
 
                 require("lspconfig")["denols"].setup {
                     root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
+                }
+
+                require("lspconfig")["svelte"].setup {
+                    on_attach = function(client)
+                        vim.api.nvim_create_autocmd("BufWritePost", {
+                            pattern = { "*.js", "*.ts" },
+                            callback = function(ctx)
+                                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+                            end,
+                            group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
+                        })
+                    end
                 }
             end,
         })
