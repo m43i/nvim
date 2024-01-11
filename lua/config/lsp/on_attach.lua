@@ -15,6 +15,20 @@ M.on_attach = function(client, bufnr)
         client.stop()
     end
 
+    if client.name == "volar" then
+        client.resolved_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+    end
+
+    if client.name == "svelte" then
+        vim.api.nvim_create_autocmd("BufWritePost", {
+            pattern = { "*.js", "*.ts" },
+            callback = function(ctx)
+                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+            end,
+            group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
+        })
+    end
+
     local opts = { buffer = bufnr, remap = false }
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)

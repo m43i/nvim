@@ -29,7 +29,6 @@ return {
             ensure_installed = vim.tbl_keys(require("config.lsp.servers")),
         })
         require("lspconfig.ui.windows").default_options.border = "single"
-
         require("neodev").setup()
 
         local cmp = require("cmp")
@@ -59,38 +58,30 @@ return {
         capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
         local mason_lspconfig = require("mason-lspconfig")
+        local lspconfig = require("lspconfig")
 
         mason_lspconfig.setup_handlers({
             function(server_name)
-                require("lspconfig")[server_name].setup({
+                lspconfig[server_name].setup({
                     capabilities = capabilities,
                     on_attach = require("config.lsp.on_attach").on_attach,
                     settings = require("config.lsp.servers")[server_name],
                     filetypes = (require("config.lsp.servers")[server_name] or {}).filetypes,
                 })
-
-                require("lspconfig")["tsserver"].setup {
+            end,
+            ["tsserver"] = function()
+                lspconfig.tsserver.setup {
                     root_dir = require("lspconfig").util.root_pattern("package.json"),
                 }
-
-                require("lspconfig")["volar"].setup {
+            end,
+            ["volar"] = function()
+                lspconfig.volar.setup {
                     root_dir = require("lspconfig").util.root_pattern("nuxt.config.js"),
                 }
-
-                require("lspconfig")["denols"].setup {
+            end,
+            ["denols"] = function()
+                lspconfig.denols.setup {
                     root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
-                }
-
-                require("lspconfig")["svelte"].setup {
-                    on_attach = function(client)
-                        vim.api.nvim_create_autocmd("BufWritePost", {
-                            pattern = { "*.js", "*.ts" },
-                            callback = function(ctx)
-                                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-                            end,
-                            group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
-                        })
-                    end
                 }
             end,
         })
