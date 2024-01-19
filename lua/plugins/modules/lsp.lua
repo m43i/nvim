@@ -12,25 +12,10 @@ return {
         { "hrsh7th/cmp-path" },
         { "hrsh7th/nvim-cmp" },
         { "hrsh7th/cmp-nvim-lua" },
-        { "saadparwaiz1/cmp_luasnip" },
         { "L3MON4D3/LuaSnip" },
+        { "saadparwaiz1/cmp_luasnip" },
     },
     config = function()
-        require("mason").setup({
-            ui = {
-                icons = {
-                    package_installed = "✓",
-                    package_pending = "➜",
-                    package_uninstalled = "✗",
-                },
-            },
-        })
-        require("mason-lspconfig").setup({
-            ensure_installed = vim.tbl_keys(require("config.lsp.servers")),
-        })
-        require("lspconfig.ui.windows").default_options.border = "single"
-        require("neodev").setup()
-
         local cmp = require("cmp")
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
         cmp.setup({
@@ -49,13 +34,28 @@ return {
             }),
             sources = {
                 { name = "nvim_lsp" },
+                { name = "luasnip" },
                 { name = "buffer" },
                 { name = "path" },
             },
         })
 
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+        require("mason").setup({
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗",
+                },
+            },
+        })
+        require("mason-lspconfig").setup({
+            ensure_installed = vim.tbl_keys(require("config.lsp.servers")),
+        })
+        require("lspconfig.ui.windows").default_options.border = "single"
+        require("neodev").setup()
+
+        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
         local mason_lspconfig = require("mason-lspconfig")
         local lspconfig = require("lspconfig")
@@ -71,17 +71,23 @@ return {
             end,
             ["tsserver"] = function()
                 lspconfig.tsserver.setup {
+                    capabilities = capabilities,
                     root_dir = require("lspconfig").util.root_pattern("package.json"),
+                    on_attach = require("config.lsp.on_attach").on_attach,
                 }
             end,
             ["volar"] = function()
                 lspconfig.volar.setup {
+                    capabilities = capabilities,
                     root_dir = require("lspconfig").util.root_pattern("nuxt.config.js"),
+                    on_attach = require("config.lsp.on_attach").on_attach,
                 }
             end,
             ["denols"] = function()
                 lspconfig.denols.setup {
+                    capabilities = capabilities,
                     root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
+                    on_attach = require("config.lsp.on_attach").on_attach,
                 }
             end,
         })
