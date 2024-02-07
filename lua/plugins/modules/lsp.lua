@@ -17,6 +17,7 @@ return {
     },
     config = function()
         local cmp = require("cmp")
+        local cmp_nvim_lsp = require("cmp_nvim_lsp")
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
         cmp.setup({
             snippet = {
@@ -55,7 +56,12 @@ return {
         require("lspconfig.ui.windows").default_options.border = "single"
         require("neodev").setup()
 
-        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local capabilities = vim.tbl_deep_extend(
+            "force",
+            {},
+            vim.lsp.protocol.make_client_capabilities(),
+            cmp_nvim_lsp.default_capabilities()
+        )
 
         local mason_lspconfig = require("mason-lspconfig")
         local lspconfig = require("lspconfig")
