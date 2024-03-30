@@ -6,14 +6,7 @@ return {
 			function()
 				require("conform").format({ async = true, lsp_fallback = true })
 			end,
-			mode = "n",
-		},
-		{
-			"<leader>cf",
-			function()
-				require("conform").format({ async = true, lsp_fallback = true })
-			end,
-			mode = "v",
+			mode = { "n", "v" },
 		},
 	},
 	config = function()
@@ -23,11 +16,12 @@ return {
 				javascriptreact = { { "biome", "prettierd" } },
 				typescript = { { "biome", "prettierd" } },
 				typescriptreact = { { "biome", "prettierd" } },
-				vue = { { "biome", "prettierd" } },
-				svelte = { { "biome", "prettierd" } },
+				vue = { "prettierd" },
+				svelte = { "prettierd" },
 				go = { "goimports", "gofmt" },
 				rust = { "rustfmt" },
 				lua = { "stylua" },
+				php = { "intelephense" },
 				["*"] = { "injected" },
 			},
 			formatters = {
@@ -38,10 +32,7 @@ return {
 				},
 				prettierd = {
 					env = {
-						string.format(
-							"PRETTIERD_DEFAULT_CONFIG=%s",
-							vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json")
-						),
+						PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json"),
 					},
 				},
 			},
