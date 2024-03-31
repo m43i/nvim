@@ -1,5 +1,6 @@
 return {
 	"stevearc/conform.nvim",
+    cmd = "ConformInfo",
 	keys = {
 		{
 			"<leader>f",
@@ -21,7 +22,6 @@ return {
 				go = { "goimports", "gofmt" },
 				rust = { "rustfmt" },
 				lua = { "stylua" },
-				php = { "intelephense" },
 				["*"] = { "injected" },
 			},
 			formatters = {
