@@ -30,11 +30,18 @@ return {
 	},
 	tsserver = {
 		single_file_support = false,
+		filetypes = {
+			"typescript",
+			"javascript",
+			"javascriptreact",
+			"typescriptreact",
+			"typescript.tsx",
+			"javascript.jsx",
+            "vue",
+		},
 	},
 	gopls = {},
-	volar = {
-		filetypes = { "vue", "typescript", "javascript" },
-	},
+	volar = {},
 	svelte = {},
 	denols = {
 		single_file_support = false,

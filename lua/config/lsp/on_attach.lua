@@ -1,24 +1,5 @@
 M = {}
 M.on_attach = function(client, bufnr)
-	local is_nuxt = require("lspconfig").util.root_pattern("nuxt.config.ts")(vim.fn.getcwd())
-	local active_clients = vim.lsp.get_active_clients()
-
-	if client.name == "volar" and is_nuxt then
-		for _, active_client in ipairs(active_clients) do
-			if active_client.name == "tsserver" then
-				active_client.stop()
-			end
-		end
-	end
-
-	if client.name == "tsserver" and is_nuxt then
-		client.stop()
-	end
-
-	if client.name == "volar" then
-		client.resolved_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
-	end
-
 	if client.name == "svelte" then
 		vim.api.nvim_create_autocmd("BufWritePost", {
 			pattern = { "*.js", "*.ts" },
