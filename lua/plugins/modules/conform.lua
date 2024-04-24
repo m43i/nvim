@@ -1,6 +1,6 @@
 return {
 	"stevearc/conform.nvim",
-    cmd = "ConformInfo",
+	cmd = "ConformInfo",
 	keys = {
 		{
 			"<leader>f",
@@ -20,7 +20,6 @@ return {
 				vue = { "prettierd" },
 				svelte = { "prettierd" },
 				go = { "goimports", "gofmt" },
-				rust = { "rustfmt" },
 				lua = { "stylua" },
 				["*"] = { "injected" },
 			},
