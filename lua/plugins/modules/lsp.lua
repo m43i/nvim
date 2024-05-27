@@ -34,6 +34,7 @@ return {
 				["S-Tab"] = nil,
 			}),
 			sources = {
+				{ name = "supermaven" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "buffer" },
@@ -92,7 +93,7 @@ return {
 							},
 						},
 					},
-                    filetypes = (require("config.lsp.servers").tsserver or {}).filetypes,
+					filetypes = (require("config.lsp.servers").tsserver or {}).filetypes,
 				})
 			end,
 			["volar"] = function()
@@ -119,7 +120,7 @@ return {
 			update_in_insert = false,
 			severity_sort = true,
 			float = {
-				source = "always",
+				source = "if_many",
 				style = "minimal",
 				border = "rounded",
 				header = "",
