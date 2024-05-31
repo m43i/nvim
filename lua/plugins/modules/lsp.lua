@@ -14,11 +14,13 @@ return {
 		{ "hrsh7th/cmp-nvim-lua" },
 		{ "L3MON4D3/LuaSnip" },
 		{ "saadparwaiz1/cmp_luasnip" },
+		{ "onsails/lspkind.nvim" },
 	},
 	config = function()
 		local cmp = require("cmp")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
+		local lspkind = require("lspkind")
 		cmp.setup({
 			snippet = {
 				expand = function(args)
@@ -34,10 +36,30 @@ return {
 				["S-Tab"] = nil,
 			}),
 			sources = {
+                { name = "supermaven" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "buffer" },
 				{ name = "path" },
+			},
+			formatting = {
+				fields = { "abbr", "kind", "menu" },
+				expandable_indicator = true,
+				format = lspkind.cmp_format({
+					mode = "symbol_text",
+					menu = {
+						buffer = "[Buffer]",
+						nvim_lsp = "[LSP]",
+						luasnip = "[LuaSnip]",
+						nvim_lua = "[Lua]",
+						latex_symbols = "[Latex]",
+                        supermaven = "[SuperMaven]",
+					},
+					maxwidth = 50,
+					ellipsis_char = "...",
+                    symbol_map = { Supermaven = "" },
+					show_labelDetails = true,
+				}),
 			},
 		})
 
@@ -109,6 +131,13 @@ return {
 					on_attach = require("config.lsp.on_attach").on_attach,
 				})
 			end,
+            ["clangd"] = function()
+                lspconfig.clangd.setup({
+                    capabilities = capabilities,
+                    on_attach = require("config.lsp.on_attach").on_attach,
+                    filetypes = { "c", "ino", "cpp", "hpp", "h" },
+                })
+            end,
 		})
 
 		vim.diagnostic.config({
