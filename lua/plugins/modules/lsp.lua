@@ -36,8 +36,8 @@ return {
 				["S-Tab"] = nil,
 			}),
 			sources = {
-                { name = "supermaven" },
 				{ name = "nvim_lsp" },
+                { name = "supermaven" },
 				{ name = "luasnip" },
 				{ name = "buffer" },
 				{ name = "path" },
