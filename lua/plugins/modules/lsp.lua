@@ -37,7 +37,7 @@ return {
 			}),
 			sources = {
 				{ name = "nvim_lsp" },
-                { name = "supermaven" },
+				{ name = "supermaven" },
 				{ name = "luasnip" },
 				{ name = "buffer" },
 				{ name = "path" },
@@ -53,11 +53,11 @@ return {
 						luasnip = "[LuaSnip]",
 						nvim_lua = "[Lua]",
 						latex_symbols = "[Latex]",
-                        supermaven = "[SuperMaven]",
+						supermaven = "[SuperMaven]",
 					},
 					maxwidth = 50,
 					ellipsis_char = "...",
-                    symbol_map = { Supermaven = "" },
+					symbol_map = { Supermaven = "" },
 					show_labelDetails = true,
 				}),
 			},
@@ -131,13 +131,13 @@ return {
 					on_attach = require("config.lsp.on_attach").on_attach,
 				})
 			end,
-            ["clangd"] = function()
-                lspconfig.clangd.setup({
-                    capabilities = capabilities,
-                    on_attach = require("config.lsp.on_attach").on_attach,
-                    filetypes = { "c", "ino", "cpp", "hpp", "h" },
-                })
-            end,
+			["clangd"] = function()
+				lspconfig.clangd.setup({
+					capabilities = capabilities,
+					on_attach = require("config.lsp.on_attach").on_attach,
+					filetypes = { "c", "ino", "cpp", "hpp", "h" },
+				})
+			end,
 		})
 
 		vim.diagnostic.config({
