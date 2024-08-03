@@ -13,10 +13,10 @@ return {
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
-				javascript = { { "biome", "prettierd" } },
-				javascriptreact = { { "biome", "prettierd" } },
-				typescript = { { "biome", "prettierd" } },
-				typescriptreact = { { "biome", "prettierd" } },
+				javascript = { "biome", "prettierd", stop_after_first = true },
+				javascriptreact = { "biome", "prettierd", stop_after_first = true },
+				typescript = { "biome", "prettierd", stop_after_first = true },
+				typescriptreact = { "biome", "prettierd", stop_after_first = true },
 				vue = { "prettierd" },
 				svelte = { "prettierd" },
 				go = { "goimports", "gofmt" },
@@ -25,8 +25,9 @@ return {
 			},
 			formatters = {
 				biome = {
-					condition = function(ctx)
-						return vim.fs.find({ "biome.json" }, { path = ctx.filename, upward = true })[1]
+					condition = function(self, ctx)
+                        local find = vim.fs.find({ "biome.json" }, { path = ctx.filename, upward = true })[1]
+                        return find ~= nil
 					end,
 				},
 				prettierd = {
