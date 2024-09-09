@@ -28,7 +28,7 @@ return {
 			mode = "auto",
 		},
 	},
-	tsserver = {
+	ts_ls = {
 		single_file_support = false,
 		filetypes = {
 			"typescript",
